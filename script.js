@@ -7,6 +7,9 @@ const errorMsg = document.getElementById("error-msg");
 const startBtn = document.getElementById("startBtn");
 const screen2 = document.getElementById("screen2");
 
+player1Name = "";
+player2Name = "";
+
 //check for players
 const validatePlayer = (e) => {
     const name1 = player1.value.trim();
@@ -20,8 +23,14 @@ const validatePlayer = (e) => {
         errorMsg.textContent = "Player names must be different";
         return;
     }
+
+    player1Name = name1;
+    player2Name = name2;
+
+    errorMsg.textContent = "";
     screen1.style.display = "none";
     screen2.style.display = "block";
+
     //s2 start
     chooseCategories(); 
 };
@@ -30,7 +39,7 @@ startBtn.addEventListener("click", validatePlayer);
 
 
 
-/*----------Screen 2: Category Selection (Start of a Round)------------*/
+/*----------Screen 2: Category Selection---------*/
 
 const roundNo = document.getElementById("round-no");
 const categorySelect = document.getElementById("categorySelect");
@@ -75,7 +84,6 @@ const chooseCategories = () => {
             option.value = category;
             option.textContent = category.replaceAll("_", " ");
             categorySelect.appendChild(option);
-
         }
     })
 }
@@ -102,16 +110,34 @@ const handleStartRound = () => {
     //3rd screen
     screen2.style.display = "none";
     screen3.style.display = "block";
+
     fetchAllQuestions()
 }
 startRoundBtn.addEventListener("click", handleStartRound);
 
 
 
-/*----------------Screen 3: Question Gameplay (6 Questions per Round)------------*/
+/*----------------Screen 3: Question Gameplay ------------*/
+const screen3 = document.getElementById("screen3");
+
+const roundInfo = document.getElementById("roundInfo");
+const categoryInfo = document.getElementById("categoryInfo");
+const difficultyInfo = document.getElementById("difficultyInfo");
+const turnInfo = document.getElementById("turnInfo");
+
+const player1ScoreDisplay = document.getElementById("player1Score");
+const player2ScoreDisplay = document.getElementById("player2Score");
+
+const questionText = document.getElementById("questionText");
+const optionsDiv = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
 
 let questions = [];
 let currentQuestionIndex = 0;
+
+let player1Score = 0;
+let player2Score = 0;
+
 
 //url and fetch data
 const fetchData = async (category, difficulty) => {
@@ -131,33 +157,17 @@ const fetchAllQuestions = async () => {
         questions = [...easy, ...medium, ...hard];
 
         console.log("fetched questions", questions);
+        displayQuestion();
+
     } catch (error) {
         console.log("error", error)
     }
-
-    displayQuestion();
 };
-
-//display the questions and gameplay
-const screen3 = document.getElementById("screen3");
-
-const roundInfo = document.getElementById("roundInfo");
-const categoryInfo = document.getElementById("categoryInfo");
-const difficultyInfo = document.getElementById("difficultyInfo");
-const turnInfo = document.getElementById("turnInfo");
-
-const player1ScoreDisplay= document.getElementById("player1Score");
-const player2ScoreDisplay = document.getElementById("player2Score");
-
-const questionText = document.getElementById("questionText");
-const optionsDiv = document.getElementById("options");
-const nextBtn = document.getElementById("nextBtn");
-
 
 //decide the difficulty
 const getdifficultyFromIndex = (index) => {
     if (index < 2) return "Easy"
-    else if (index >2 && index < 4) return "Medium"
+    else if (index < 4) return "Medium"
     else return "Hard"
 }
 
@@ -166,7 +176,14 @@ const getCurrentPlayer = (index) => {
     return index % 2 === 0 ? "Player 1" : "Player 2";
 }
 
-//shuffle array -took help
+//score based on difficulty
+const getScoreByDifficulty = (index) => {
+    if (index < 2) return 10;
+    if (index < 4) return 15;
+    return 20;
+};
+
+//shuffle array -took help from chatgpt
 const shuffleArray = (arr) => {
     for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -187,30 +204,22 @@ const displayQuestion = () => {
     
     questionText.textContent = q.question;
     optionsDiv.innerHTML = "";
+    nextBtn.disabled = true;
 
     const allOptions = [...q.incorrectAnswers, q.correctAnswer];
 
     shuffleArray(allOptions);
 
     allOptions.forEach((option) => {
-    const btn = document.createElement("button");
-    btn.textContent = option;
-    btn.className = "option-btn"
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.className = "option-btn"
         
-    btn.addEventListener("click", () => handleOptionClick(option, btn));
+        btn.addEventListener("click", () => handleOptionClick(option, btn));
         
-    optionsDiv.appendChild(btn);
+        optionsDiv.appendChild(btn);
     });
 }
-
-let player1Score = 0;
-let player2Score = 0;
-
-const getScoreByDifficulty = (index) => {
-    if (index < 2) return 10;
-    if (index < 4) return 15;
-    return 20;
-};
 
 const handleOptionClick = (selectedOption, selectedBtn) => {
     const q = questions[currentQuestionIndex];
@@ -255,10 +264,9 @@ nextBtn.addEventListener("click", () => {
     } else {
         screen3.style.display = "none";
         screen4.style.display = "block";
-
+        updateNextRoundBtn();
     }
 });
-
 
 /*--------SCREEN4-----------*/
 const screen4 = document.getElementById("screen4");
@@ -278,6 +286,7 @@ nextRoundBtn.addEventListener("click", () => {
     roundNumber++;
     currentQuestionIndex = 0;
     questions = [];
+
     screen4.style.display = "none";
     screen2.style.display = "block";
 
@@ -290,4 +299,25 @@ endGameBtn.addEventListener("click", () => {
     screen4.style.display = "none";
     screen5.style.display = "block";
     console.log("Game ended");
+    showResult();
 })
+
+
+
+/*---Screen 5: Final Result----*/
+const screen5=document.getElementById("screen5")
+const scoreDisplay = document.getElementById("scoreDisplay");
+const resMsg = document.getElementById("resMsg");
+
+
+const showResult = () => {
+    scoreDisplay.textContent = `Player 1:${player1Score} | Player 2: ${player2Score}`;
+
+    if (player1Score > player2Score) {
+        resMsg.textContent = `${player1} Wins 🎉`;
+    } else if(player1Score<player2Score){
+        resMsg.textContent = `${player2} Wins 🎉`;
+    } else {
+        resMsg.textContent = `It's a Draw 🤝`;
+    }
+}
