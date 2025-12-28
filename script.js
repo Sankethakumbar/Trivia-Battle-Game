@@ -109,7 +109,6 @@ const handleStartRound = () => {
 
 }
 
-
 startRoundBtn.addEventListener("click", handleStartRound);
 
 
@@ -140,3 +139,4 @@ const fetchAllQuestions = async () => {
         console.log("error", error)
     }
 };
+
