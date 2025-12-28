@@ -1,0 +1,197 @@
+/* Base Reset & Typography */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: #333;
+}
+
+h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* Screen Containers */
+#screen1,
+#screen2,
+#screen3,
+#screen4,
+#screen5 {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Input Groups */
+.input-grp {
+    margin-bottom: 1.25rem;
+}
+
+.input-grp label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.input-grp input,
+.input-grp select {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.input-grp input:focus,
+.input-grp select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Error Messages */
+#error-msg,
+#category-error {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    min-height: 1.2rem;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 0.9rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+
+}
+
+/* Game Info */
+#gameInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Score Board */
+#scoreBoard {
+    display: flex;
+    justify-content: space-between;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+#scoreBoard p {
+    color: #fff;
+    font-weight: 600;
+}
+
+/* Question Box */
+#questionBox {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+#questionText {
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Options */
+#options {
+    display: grid;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.option-btn {
+    background: #fff;
+    color: #333;
+    border: 2px solid #e0e0e0;
+    text-align: left;
+    padding: 1rem;
+    font-weight: 500;
+}
+
+.option-btn:hover:not(:disabled) {
+    border-color: #667eea;
+    background: #f8f9fa;
+    transform: none;
+    box-shadow: none;
+}
+
+.option-btn:disabled {
+    background: #f0f0f0;
+}
+
+/* Screen 4 - Round Summary */
+#screen4 h2 {
+    text-align: center;
+    color: #667eea;
+    margin-bottom: 1.5rem;
+}
+
+#screen4 button {
+    margin-bottom: 0.75rem;
+}
+
+#endGameBtn {
+    background: #fff;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+#endGameBtn:hover {
+    background: #667eea;
+    color: #fff;
+}
+
+/* Screen 5 - Final Result */
+#screen5 {
+    text-align: center;
+}
+
+#scoreDisplay {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+#resMsg {
+    font-size: 1.75rem;
+    color: #667eea;
+}
