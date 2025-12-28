@@ -253,7 +253,41 @@ nextBtn.addEventListener("click", () => {
     if (currentQuestionIndex < questions.length) {
         displayQuestion();
     } else {
-        alert("Round Completed");
+        screen3.style.display = "none";
+        screen4.style.display = "block";
+
     }
 });
 
+
+/*--------SCREEN4-----------*/
+const screen4 = document.getElementById("screen4");
+const nextRoundBtn = document.getElementById("nextRoundBtn");
+const endGameBtn = document.getElementById("endGameBtn");
+
+
+const updateNextRoundBtn = () => {
+    if (usedCategories.length === allCategories.length) {
+        nextRoundBtn.disabled = true;
+    } else {
+        nextRoundBtn.disabled = false;
+    }
+}
+
+nextRoundBtn.addEventListener("click", () => {
+    roundNumber++;
+    currentQuestionIndex = 0;
+    questions = [];
+    screen4.style.display = "none";
+    screen2.style.display = "block";
+
+    //round no and categories dropdown
+    updateRound();
+    chooseCategories();
+})
+
+endGameBtn.addEventListener("click", () => {
+    screen4.style.display = "none";
+    screen5.style.display = "block";
+    console.log("Game ended");
+})
