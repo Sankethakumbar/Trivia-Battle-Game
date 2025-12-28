@@ -1,6 +1,7 @@
 
 
-/*----------------Screen_1-------------*/
+/*--------Screen 1: Player Setup
+------------*/
 
 const screen1 = document.getElementById("screen1");
 const player1 = document.getElementById("player1");
@@ -33,7 +34,7 @@ startBtn.addEventListener("click", validatePlayer);
 
 
 
-/*----------------Screen_2-------------*/
+/*----------Screen 2: Category Selection (Start of a Round)------------*/
 
 const roundNo = document.getElementById("round-no");
 const categorySelect = document.getElementById("categorySelect");
@@ -102,7 +103,40 @@ const handleStartRound = () => {
     console.log("Round:", roundNumber);
     console.log("Category:", currentCategory);
     console.log("Used categories:", usedCategories);
+
+    //3rd screen
+    fetchAllQuestions()
+
 }
 
 
 startRoundBtn.addEventListener("click", handleStartRound);
+
+
+
+/*----------------Screen 3: Question Gameplay (6 Questions per Round)------------*/
+
+let questions = [];
+let currentQuestionIndex = 0;
+
+
+const fetchData = async (category, difficulty) => {
+    const url = `https://the-trivia-api.com/api/questions?categories=${category}&difficulty=${difficulty}&limit=2`;
+    const res = await fetch(url);
+    const data = await res.json();
+    return data;
+}
+
+const fetchAllQuestions = async () => {
+    try {
+        const easy = await fetchData(currentCategory, "easy");
+        const medium = await fetchData(currentCategory, "medium");
+        const hard = await fetchData(currentCategory, "hard");
+
+        questions = [...easy, ...medium, ...hard];
+
+        console.log("fetched questions", questions);
+    } catch (error) {
+        console.log("error", error)
+    }
+};
