@@ -173,7 +173,7 @@ const getdifficultyFromIndex = (index) => {
 
 //current player
 const getCurrentPlayer = (index) => {
-    return index % 2 === 0 ? "Player 1" : "Player 2";
+    return index % 2 === 0 ? player1Name : player2Name;
 }
 
 //score based on difficulty
@@ -197,10 +197,10 @@ const displayQuestion = () => {
 
     if (!q) return
 
-    roundInfo.textContent = `Round ${roundNumber}`;
+    roundInfo.textContent = `Round: ${roundNumber}`;
     categoryInfo.textContent = `Category: ${currentCategory.replaceAll("_", " ")}`;
     difficultyInfo.textContent = `Difficulty: ${getdifficultyFromIndex(currentQuestionIndex)}`
-    turnInfo.textContent = `Turn ${getCurrentPlayer(currentQuestionIndex)}`
+    turnInfo.textContent = `Turn: ${getCurrentPlayer(currentQuestionIndex)}`
     
     questionText.textContent = q.question;
     optionsDiv.innerHTML = "";
@@ -314,9 +314,9 @@ const showResult = () => {
     scoreDisplay.textContent = `Player 1:${player1Score} | Player 2: ${player2Score}`;
 
     if (player1Score > player2Score) {
-        resMsg.textContent = `${player1} Wins 🎉`;
+        resMsg.textContent = `${player1Name} Wins 🎉`;
     } else if(player1Score<player2Score){
-        resMsg.textContent = `${player2} Wins 🎉`;
+        resMsg.textContent = `${player2Name} Wins 🎉`;
     } else {
         resMsg.textContent = `It's a Draw 🤝`;
     }
