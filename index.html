@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TRIVIA BATTLE GAME</title>
 </head>
+
 <body>
     <h1>TRIVIA BATTLE GAME</h1>
 
@@ -12,23 +14,34 @@
     <div id="screen1">
         <div class="input-grp">
             <label for="player1">Player 1 Name</label>
-            <input type="text" id="player1" placeholder="Player 1">
+            <input type="text" id="player1" placeholder="Player 1" />
         </div>
 
         <div class="input-grp">
             <label for="player2">Player 2 Name</label>
-            <input type="text"  id="player2" placeholder="Player 2">
+            <input type="text" id="player2" placeholder="Player 2" />
         </div>
 
         <p id="error-msg"></p>
-        <button id="startBtn" >Start Game</button> 
+        <button id="startBtn">Start Game</button>
     </div>
-    
 
+    <!--SCREEN 2 : CATEGORY SELECTION-->
+    <div id="screen2" style="display:none;">
+        <div id="round-no">Round 1</div>
 
+        <div class="input-grp">
+            <label for="categorySelect">Select Category</label>
+            <select name="categorySelect" id="categorySelect">
+                <option value="" hidden selected>Choose your category</option>
+            </select>
+        </div>
 
-
+        <p id="category-error"></p>
+        <button id="startRoundBtn">Start Round</button>
+    </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
