@@ -165,9 +165,9 @@ const fetchAllQuestions = async () => {
 };
 
 //decide the difficulty
-const getdifficultyFromIndex = (index) => {
-    if (index < 2) return "Easy"
-    else if (index < 4) return "Medium"
+const getdifficultyFromIndex = (indexuntil) => {
+    if (indexuntil < 2) return "Easy"
+    else if (indexuntil < 4) return "Medium"
     else return "Hard"
 }
 
